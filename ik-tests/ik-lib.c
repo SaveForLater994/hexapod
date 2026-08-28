@@ -70,7 +70,23 @@ int convert_pos_into_angles(servo_angles* angles,const servo_data* data){
 } 
 
 const char* ik_status_to_string(ik_status_t status){
-
+    switch (status)
+    {
+    case IK_OK:
+        return "Ok status";
+    case IK_COXA_OUT_OF_REACH:
+        return "Error: Coxa out of reach";
+    case IK_FEMUR_OUT_OF_REACH:
+        return "Error: Femur out of reach";
+    case IK_TIBIA_OUT_OF_REACH:
+        return "Error: Tibia out of reach";
+    case IK_ERR_SINGULARITY:
+        return "Errror: Arithmetic singularity";
+    case IK_ERR_INVALID_PARAM:
+        return "Error: Invalid parameters";
+    default:
+        break;
+    }
 }
 
 int main(){
