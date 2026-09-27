@@ -13,8 +13,8 @@ typedef enum {
 } ik_status_t;
 
 
-const PI_3 = 1.0471975512f;
-const PI_6 = 0.52359877559f;
+const float PI_3 = 1.0471975512f;
+const float PI_6 = 0.52359877559f;
 
 typedef struct{
     float X;
@@ -46,7 +46,7 @@ static inline int convert_pos_into_angles(servo_angles* angles,const servo_data*
     }
     float alpha = atanf(data->desired_pos.Y/data->desired_pos.X);
     float l_sqr = data->desired_pos.X*data->desired_pos.X 
-                        + data->desired_pos.Y*data->desired_pos.Y
+                        + data->desired_pos.Y*data->desired_pos.Y;
     float l = sqrtf(l_sqr);
     float diametr_sqr = l_sqr
                         +data->desired_pos.Z*data->desired_pos.Z;
