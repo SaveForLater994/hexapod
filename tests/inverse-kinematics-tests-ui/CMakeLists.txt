@@ -13,7 +13,9 @@ qt_add_executable(inverse-kinematics-tests-ui
     main.cpp
     mainwindow.cpp
     mainwindow.h
-    mainwindow.ui
+    canvas2d.cpp
+    canvas2d.h
+    ik-tests.h
 )
 
 target_link_libraries(inverse-kinematics-tests-ui PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
