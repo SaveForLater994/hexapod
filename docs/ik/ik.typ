@@ -1,5 +1,7 @@
-#import "../bsuir_typst/lib/stp2024.typ"
+#import "../stp_typst_template_for_everyday_use/lib/stp2024.typ"
 #show: stp2024.template
+
+
 
 == Вывод уравнений обратной кинематики для прямоходящего робота
 
