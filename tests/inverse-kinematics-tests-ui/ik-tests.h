@@ -5,11 +5,11 @@
 
 typedef enum {
     IK_OK = 0,
-    IK_COXA_OUT_OF_REACH,
+    IK_COXA_OUT_OF_REACH, 
     IK_FEMUR_OUT_OF_REACH,
     IK_TIBIA_OUT_OF_REACH,
-    IK_ERR_SINGULARITY,
-    IK_ERR_INVALID_PARAM
+    IK_ERR_SINGULARITY,// Arithmetic singularity
+    IK_ERR_INVALID_PARAM // Invalid parameters
 } ik_status_t;
 
 const float PI_3 = 1.0471975512f;
@@ -32,8 +32,8 @@ typedef struct {
     float leg_femur;
     float leg_tarsus;
     float servo_max_angle;
-    float delta_coxa_femur_angle = 0.0f;
-    float delta_tibia_leg_angle = 0.0f;
+    float delta_coxa_femur_angle = 0.0f;// Angle offset between coxa and femur servos
+    float delta_tibia_leg_angle = 0.0f;// Angle offset between tibia and leg
 } servo_data;
 
 static inline int convert_pos_into_angles(servo_angles* angles, const servo_data* data) {
@@ -52,13 +52,14 @@ static inline int convert_pos_into_angles(servo_angles* angles, const servo_data
     float l1 = data->leg_femur;
     float l2 = data->leg_tarsus;
 
+    // Вычисление угла между звеньями (gamma)
     float cos_gamma_inner = (l1 * l1 + l2 * l2 - d_sqr) / (2.0f * l1 * l2);
     if (cos_gamma_inner < -1.0f || cos_gamma_inner > 1.0f) {
         return IK_TIBIA_OUT_OF_REACH;
     }
-    float gamma = (float)M_PI - acosf(cos_gamma_inner);
+    float gamma = acosf(cos_gamma_inner);
 
-    float cos_phi = (l1 * l1 + d_sqr - l2 * l2) / (2.0f * l1 * d);
+    float cos_phi = (l2 * l2 - l1 * l1 - d_sqr) / (2.0f * l1 * d);
     if (cos_phi < -1.0f || cos_phi > 1.0f) {
         return IK_FEMUR_OUT_OF_REACH;
     }

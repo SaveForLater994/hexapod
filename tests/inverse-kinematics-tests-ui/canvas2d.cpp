@@ -5,7 +5,7 @@ LegCanvas2D::LegCanvas2D(ViewMode mode, QWidget *parent)
     : QWidget(parent), m_mode(mode) {
     setMinimumSize(250, 250);
     m_pos = {0, 0, 0};
-    m_data = { {0,0,0}, 75.0f, 130.0f, 180.0f, 0.0f, 0.0f };
+    m_data = { {0,0,0}, 40.0f, 140.0f, 180.0f, 0.0f, 0.0f };
     m_angles = {0, 0, 0};
 }
 
@@ -37,7 +37,7 @@ void LegCanvas2D::paintEvent(QPaintEvent *event) {
 
     // Засечки и подписи осей
     painter.setPen(QColor(120, 120, 140));
-    painter.setFont(QFont("Arial", 8));
+    painter.setFont(QFont("Courier New", 10));
     if (m_mode == TOP_VIEW) {
         painter.drawText(w - 25, center.y() - 5, "+X");
         painter.drawText(center.x() + 5, 15, "+Y");
@@ -97,17 +97,14 @@ void LegCanvas2D::paintEvent(QPaintEvent *event) {
         QPointF target(p0.x() + r * scale, p0.y() - z * scale);
 
         float l1 = m_data.leg_femur * scale;
-        float l2 = m_data.leg_tarsus * scale;
         float beta = m_angles.femur_servo_angle;
-        float gamma = m_angles.tibia_servo_angle;
 
-        // Точка колена (Femur -> Tibia joint)
+        // Точка колена (Femur -> Tibia joint) через угол бедра beta
         QPointF p1(p0.x() + l1 * std::cos(beta), 
                     p0.y() - l1 * std::sin(beta));
 
-        // Конец ноги (Tibia tip)
-        QPointF p2(p1.x() + l2 * std::cos(beta - gamma), 
-                    p1.y() - l2 * std::sin(beta - gamma));
+        // Кончик ноги (Tibia tip) - соединяет колено с целевой позицией стопы
+        QPointF p2 = target;
 
         // 1. Звено Femur (оранжевый цвет)
         painter.setPen(QPen(QColor(255, 170, 0), 4));
