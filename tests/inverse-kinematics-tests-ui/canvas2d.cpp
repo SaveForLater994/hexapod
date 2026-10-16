@@ -9,7 +9,7 @@ LegCanvas2D::LegCanvas2D(ViewMode mode, QWidget *parent)
     m_angles = {0, 0, 0};
 }
 
-void LegCanvas2D::updateState(const vec3_float &pos, const servo_data &data, const servo_angles &angles, bool isValid, ik_status_t status) {
+void LegCanvas2D::updateState(const vec3_float &pos, const leg_data &data, const servo_angles &angles, bool isValid, ik_status_t status) {
     m_pos = pos;
     m_data = data;
     m_angles = angles;

@@ -6,17 +6,27 @@
 #include <QGroupBox>
 #include <cmath>
 
+const float PI = 3.14159265358979323846f;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     setWindowTitle("Hexapod IK Test Visualizer");
     resize(950, 550);
 
-    m_ikData.leg_femur = 75.0f;
+    m_ikData.leg_femur = 40.0f;
     m_ikData.leg_tarsus = 130.0f;
-    m_ikData.servo_max_angle = 3.14159f;
+
+    m_ikData.servo_coxa_max_angle_rad = 3.14159f;
+    m_ikData.servo_femur_max_angle_rad = 3.14159f;
+    m_ikData.servo_tibia_max_angle_rad = 3.14159f;
+    
     m_ikData.delta_coxa_femur_angle = 0.0f;
     m_ikData.delta_tibia_leg_angle = 0.0f;
+
+    m_ikData.coxa_angle_offset = 0.0f;
+    m_ikData.femur_angle_offset = PI_6; // 30 degrees offset for femur
+    m_ikData.tibia_angle_offset = PI/2.0f; // 60 degrees offset for tibia
 
     QWidget *centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
@@ -39,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     sliderLayout->addWidget(new QLabel("Y:"), 1, 0);
     m_sliderY = new QSlider(Qt::Horizontal, this);
-    m_sliderY->setRange(1, 200);
+    m_sliderY->setRange(-100, 100);
     m_sliderY->setValue(100);
     m_labelYVal = new QLabel("100 mm", this);
     sliderLayout->addWidget(m_sliderY, 1, 1);
@@ -117,8 +127,8 @@ void MainWindow::onSlidersChanged()
     m_ikData.desired_pos = { x, y, z };
 
     servo_angles angles;
-    int res = convert_pos_into_angles(&angles, &m_ikData);
-
+    int res = conversion_pipeline(&angles, &m_ikData);
+    qDebug() << "IK Result: " << res << ", Angles: coxa=" << angles.coxa_servo_angle << ", femur=" << angles.femur_servo_angle << ", tibia=" << angles.tibia_servo_angle;
     const float RAD_TO_DEG = 180.0f / 3.1415926535f;
 
     if (res == IK_OK) {

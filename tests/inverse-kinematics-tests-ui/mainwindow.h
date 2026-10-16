@@ -32,5 +32,5 @@ private:
     LegCanvas2D *m_canvasTop;
     LegCanvas2D *m_canvasSide;
 
-    servo_data m_ikData;
+    leg_data m_ikData;
 };
