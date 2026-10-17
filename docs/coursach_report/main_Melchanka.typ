@@ -16,9 +16,13 @@
 // Разделы Мельченко Д. А.
 #include "030_architectura_vichislitelnoi_systemi.typ"
 #include "040_platforma_programmnogo_obespechenia.typ"
+#include "050_teoriticheskoye_obosnovaniye.typ"
+
+
 #include "051_proektirovanie_melchanka.typ"
 #include "061_architectura_melchanka.typ"
 
+#pagebreak()
 // Заключение
 #include "070_conclusion.typ"
 

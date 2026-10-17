@@ -88,7 +88,7 @@
 - [ ] **Проверка границ досягаемости (Workspace Limits)** — корректная обработка ошибок `OUT_OF_REACH` и сингулярностей.
 
 #### Math UI Check
-- [ ] **Qt 2D IK Visualizer (`inverse-kinematics-tests-ui`)** — графическая 2D-симуляция движения ноги в проекциях Top View $(XY)$ и Side View $(R\text{-}Z)$.
+- [x] **Qt 2D IK Visualizer (`inverse-kinematics-tests-ui`)** — графическая 2D-симуляция движения ноги в проекциях Top View $(XY)$ и Side View $(R\text{-}Z)$.
 - [ ] **Simulated Hexapod Walk (`hexapod-walk-test`)** — симуляция 6 ног на плоскости и генерация походки.
 
 ### 2. Аппаратные тесты прошивки (`tests/firmware-tests` / ESP32)
@@ -98,12 +98,15 @@
 - [ ] **Dual VL53L0X ToF Sensors Test (`vl53l0x_dual_test`)** — раздельная инициализация двух лазерных дальномеров через сигналы `XSHUT` с переназначением I2C-адреса.
 - [ ] **WS2812B LED & Status Test (`ws2812b_led_test`)** — индикация системных режимов и ошибок с помощью светодиода RGB.
 
+
+
+
 ### 3. Сеть и WebSocket Сервер (Server / Hardware Network Tests)
 - [ ] **Wi-Fi SoftAP / Station Connection Test** — подъем точки доступа ESP32, проверка стабильности DHCP и подключения клиентов.
 - [ ] **LittleFS Web Server Test** — проверка отдачи Gzip-сжатых статических ресурсов (HTML/CSS/JS) через `esp_http_server`.
-- [ ] **WebSocket Stress / Throughput Test** — нагрузочное тестирование с частотой 20–50 Гц пакетов телеметрии/управления.
-- [ ] **Multi-Client Connection Guard** — защита сервера от одновременных подключений с автоматическим сбросом зависших сокетов.
 
+- [ ] **Multi-Client Connection Guard** — защита сервера от одновременных подключений с автоматическим сбросом зависших сокетов.
+- [ ] **WebSocket Stress / Throughput Test** — нагрузочное тестирование с частотой 20–50 Гц пакетов телеметрии/управления.
 
 ### 4. Веб-интерфейс (Frontend UI Tests)
 - [ ] **Virtual Joystick Output Test** — генерация координат вектора движения $(V_x, V_y, \omega_z)$ с гистерезисом мертвой зоны.
@@ -112,3 +115,10 @@
 - [ ] **Servo Calibration UI & Live Adjustment** — интерфейс точной подгонки нулевых точек 18 сервоприводов в реальном времени.
 - [ ] **Telemetry Dashboard Rendering Test** — отображение заряда аккумулятора, графика тока INA219 и показателей ToF в реальном времени.
 - [ ] **Touch and Mouse Event Normalization** — стабильная обработка касаний на экранах смартфонов и кликов мыши на ПК.
+
+
+### 5. Походка гексапода 
+
+- [ ] Анализ и сравнение разных режимов ходьбы
+- [ ] Алгосы выбор частоты
+- [ ] Тесты(gtests)
